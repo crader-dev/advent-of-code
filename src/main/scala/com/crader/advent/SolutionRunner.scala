@@ -3,6 +3,8 @@ package com.crader.advent
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
+import scala.util.{Failure, Success, Try}
+
 /** Runner for all Advent of Code solutions in this project.
  *
  * This was inspired by [[https://github.com/matelaszlo/advent-of-code-scala/blob/master/src/main/scala/com/lmat/adventofcode/PuzzleRunner.scala Máté László's PuzzleRunner]].
@@ -28,17 +30,25 @@ object SolutionRunner extends App {
       case None => println(s"Day $day of $year has not been solved yet")
       case Some(solution) =>
         println(s"Running solution for Day $day of $year..")
-        val (part1Result, part2Result) = solution.solve(getInputPath(day, year))
-        println(
-          s"""Results:
-             |  Part 1: $part1Result
-             |  Part 2: $part2Result
-             |""".stripMargin)
+        solution.solve(getInputPath(day, year)) match {
+          case (Success(part1Result), Success(part2Result)) =>
+            println(
+              s"""Results:
+                 |  Part 1: $part1Result
+                 |  Part 2: $part2Result
+                 |""".stripMargin
+            )
+          case (Failure(t), _) =>
+            println(s"Error in Part 1:\n${t.getMessage}")
+          // Only print a Part 2 error if Part 1 did not have an error
+          case (_, Failure(t)) =>
+            println(s"Error in Part 2:\n${t.getMessage}")
+        }
     }
   }
 
-  /** Calculate the current puzzle day of the given/current year by getting the difference between the current date
-   * and December 1st of the given/current year.
+  /** Calculate the current puzzle day of the given `puzzleYear` by getting the difference between the current date
+   * and December 1st of the given `puzzleYear`.
    *
    * Examples:
    *    - Nov 30, 2019  ->  Day  1, 2019
@@ -55,14 +65,17 @@ object SolutionRunner extends App {
       .toInt
   }
 
+  /**
+   * Get the resource path (relative) for the input file corresponding to the given `day` and `year`.
+   */
   private def getInputPath(day: Int, year: Int) = {
-    s"$year/${"%02d".format(day)}"
+    s"$year/Day${"%02d".format(day)}.txt"
   }
 }
 
 object Solutions {
   // year -> day -> solution
-  private val solutionMap: Map[Int, Map[Int, Solution[_, _]]] = Map(
+  private val solutionMap: Map[Int, Map[Int, Solution[_, _, _, _]]] = Map(
     2019 -> Map(
       1 -> year2019.Day1
     )
@@ -70,7 +83,7 @@ object Solutions {
 
   /** Get the solution for the given `day` and `year`
    */
-  def getSolution(day: Int, year: Int): Option[Solution[_, _]] = {
+  def getSolution(day: Int, year: Int): Option[Solution[_, _, _, _]] = {
     solutionMap.get(year).flatMap(_.get(day))
   }
 }
