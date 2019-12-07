@@ -22,4 +22,4 @@ sbt run [day] [year]
 ### 2019
 | Day | Problem | Solution |
 |:---:|:-------:|:--------:|
-|  1  | [The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1) | [Solution](src/main/scala/com/crader/advent/2019/Day1.scala) |
+|  1  | [The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1) | [Solution](src/main/scala/com/crader/advent/year2019/Day1.scala) |
