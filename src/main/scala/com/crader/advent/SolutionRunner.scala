@@ -65,8 +65,7 @@ object SolutionRunner extends App {
       .toInt
   }
 
-  /**
-   * Get the resource path (relative) for the input file corresponding to the given `day` and `year`.
+  /** Get the resource path (relative) for the input file corresponding to the given `day` and `year`.
    */
   private def getInputPath(day: Int, year: Int) = {
     s"$year/Day${"%02d".format(day)}.txt"
@@ -77,7 +76,8 @@ object Solutions {
   // year -> day -> solution
   private val solutionMap: Map[Int, Map[Int, Solution[_, _, _, _]]] = Map(
     2019 -> Map(
-      1 -> year2019.Day1
+      1 -> year2019.Day1,
+      6 -> year2019.Day6
     )
   )
 

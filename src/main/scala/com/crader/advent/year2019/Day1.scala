@@ -10,7 +10,7 @@ import scala.util.Try
 object Day1 extends SingleInputSolution[Seq[Int], Int, Int] {
 
   override protected def parse(inputPath: String): Try[Seq[Int]] = {
-    InputFile.asCollection(inputPath)(_.toInt)(Seq)
+    InputFile.fromMultipleLines(inputPath)(_.toInt)(Seq)
   }
 
   override protected def part1(moduleMasses: Seq[Int]): Try[Int] = Try { moduleMasses.iterator.map(fuel1).sum }

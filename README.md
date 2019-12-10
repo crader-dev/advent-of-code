@@ -23,3 +23,4 @@ sbt run [day] [year]
 | Day | Problem | Solution |
 |:---:|:-------:|:--------:|
 |  1  | [The Tyranny of the Rocket Equation](https://adventofcode.com/2019/day/1) | [Solution](src/main/scala/com/crader/advent/year2019/Day1.scala) |
+|  6  | [Universal Orbit Map](https://adventofcode.com/2019/day/6) | [Solution](src/main/scala/com/crader/advent/year2019/Day6.scala) |
